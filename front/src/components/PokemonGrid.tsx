@@ -18,6 +18,7 @@ interface PokemonGridProps {
   selectedRegion: string;
   initialLimit?: number;
   translations?: Record<number, Translation>;
+  isSearching?: boolean;
 }
 
 export const PokemonGrid = ({
@@ -25,6 +26,7 @@ export const PokemonGrid = ({
   selectedRegion = "all",
   initialLimit = 20,
   translations = {},
+  isSearching = false,
 }: PokemonGridProps) => {
   const [pokemons, setPokemons] = useState<PokemonBasic[]>([]);
   const [loading, setLoading] = useState(true);
@@ -166,13 +168,13 @@ export const PokemonGrid = ({
             <Button
               variant="contained"
               onClick={loadMore}
-              disabled={loading}
+              disabled={loading || isSearching}
               sx={{
                 minWidth: 200,
                 py: 1.5,
               }}
             >
-              {loading ? (
+              {loading && !isSearching ? (
                 <CircularProgress size={24} color="inherit" />
               ) : (
                 "Carregar Mais"
@@ -181,7 +183,7 @@ export const PokemonGrid = ({
           </Box>
         )}
 
-        {loading && !pokemons.length && (
+        {loading && !pokemons.length && !isSearching && (
           <Box
             sx={{
               display: "flex",

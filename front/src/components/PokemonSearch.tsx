@@ -51,7 +51,11 @@ export const PokemonSearch = ({
             ),
             endAdornment: searchText && (
               <InputAdornment position="end">
-                <IconButton onClick={() => setSearchText("")} size="small">
+                <IconButton
+                  onClick={() => setSearchText("")}
+                  size="small"
+                  disabled={loading}
+                >
                   <Clear />
                 </IconButton>
               </InputAdornment>

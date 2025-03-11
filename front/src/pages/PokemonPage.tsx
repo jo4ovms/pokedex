@@ -1,6 +1,7 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { Container, Typography, Paper, Snackbar, Alert } from "@mui/material";
 import { PokeAPI } from "../services/pokeapi.service";
+
 import {
   Pokemon,
   PokemonBasic,
@@ -26,8 +27,7 @@ const PokemonPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const LIMIT = 20;
-  const pokemonService = new PokeAPI();
-
+  const pokemonService = useMemo(() => new PokeAPI(), []);
   useEffect(() => {
     saveFavorites(favorites);
   }, [favorites]);
@@ -133,7 +133,7 @@ const PokemonPage = () => {
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
       <Typography variant="h3" sx={{ textAlign: "center", mb: 4 }}>
-        Pokédex Avançada
+        Pokédex
       </Typography>
 
       <Paper elevation={3} sx={{ p: 2, mb: 4 }}>
@@ -172,6 +172,7 @@ const PokemonPage = () => {
         selectedRegion={selectedRegion}
         initialLimit={LIMIT}
         translations={translations}
+        isSearching={loading}
       />
 
       <Snackbar

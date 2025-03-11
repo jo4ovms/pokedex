@@ -26,6 +26,7 @@ export const RegionSelector = ({
     <FormControl fullWidth>
       <InputLabel>Região</InputLabel>
       <Select
+        label="Região"
         value={selectedRegion}
         onChange={handleChange}
         disabled={disabled}
